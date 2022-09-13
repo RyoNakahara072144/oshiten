@@ -33,8 +33,10 @@ class SearchResults extends StatelessWidget {
                             .where("prefecture",isEqualTo: search.selectedPrefectureValue)
                             .where("genre",isEqualTo: search.selectedGenreValue)
                             // .where("maxPrice",isGreaterThan: search.selectedMaxPriceValue)
-                            .where("minPrice",isEqualTo: search.selectedMinPriceValue)
-                            .where("maxPrice",isEqualTo: search.selectedMaxPriceValue)
+                            //.where("minPrice",isGreaterThanOrEqualTo: search.selectedMinPriceValue)
+
+                        //Firestore上の値段データはpriceだけにして、範囲選択を活用するといいです。
+                            //.where("maxPrice",isLessThan: search.selectedMaxPriceValue)
                             .where('age',arrayContainsAny: search.ageLists)
                             .where('scene',isEqualTo: search.selectedSceneValue)
                             .where('atmosphere',isEqualTo: search.selectedAtmosphereValue)

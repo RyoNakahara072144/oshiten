@@ -28,6 +28,7 @@ class ConditionsLineUp extends StatelessWidget {
           ),
         ],
       ),
+
       body: Container(
         child: Container(
           margin: EdgeInsets.all(20),
@@ -44,16 +45,27 @@ class ConditionsLineUp extends StatelessWidget {
               SizedBox(height: 20,),
               Consumer<SortProvider>(
                   builder: (context, sort, child) {
+
                     return StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance.collectionGroup('eachCondition').snapshots(),
                         builder: (context, snapshot){
                           if(snapshot.hasData){
                             List<DocumentSnapshot> eachConditionsData = snapshot.data!.docs;
+
+                            //絞り込みを一覧に反映させるようにしました。sortedConditionsDataはソートの条件を満たすドキュメントだけを抽出した新しいリストです。
+                            List<DocumentSnapshot> sortedConditionsData = eachConditionsData.where((condition){
+                              if((sort.selectedPrefectureValue=='指定なし'||sort.selectedPrefectureValue==condition["prefecture"])&&
+                                  (sort.selectedGenreValue=='指定なし'||sort.selectedGenreValue==condition["genre"])){
+                                return true;
+                              }
+                              return false;
+                            }).toList();
+
                             return Expanded(
                               child: ListView.builder(
-                                  itemCount: eachConditionsData.length,
+                                  itemCount: sortedConditionsData.length,
                                   itemBuilder: (context, index){
-                                    Map<String, dynamic> eachConditionData = eachConditionsData[index].data() as Map<String, dynamic>;
+                                    Map<String, dynamic> eachConditionData = sortedConditionsData[index].data() as Map<String, dynamic>;
                                     return Container(
                                       width: double.infinity,
                                       padding: EdgeInsets.all(10),

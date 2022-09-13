@@ -7,8 +7,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class SortProvider extends ChangeNotifier {
 
-  var selectedPrefectureValue = "北海道";
-  static final prefecturesLists = <String>[
+  var selectedPrefectureValue = "指定なし";
+
+  //指定なしを追加
+  static final prefecturesLists = <String>[ "指定なし",
     "北海道","青森県","秋田県","岩手県","山形県","宮城県","福島県",
     "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
     "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県",
@@ -17,8 +19,10 @@ class SortProvider extends ChangeNotifier {
     "徳島県","香川県","愛媛県","高知県",
     "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"
   ];
-  var selectedGenreValue = "和食";
-  static final genreLists = <String>[
+  var selectedGenreValue = "指定なし";
+
+  //指定なしを追加
+  static final genreLists = <String>[ "指定なし",
     "和食","イタリアン","フレンチ","中華","西洋","アジア・エスニック","創作料理","居酒屋・バー","カフェ",
     "ラーメン","カレー","焼肉","鍋","パン","スイーツ"
   ];
@@ -283,11 +287,12 @@ class ConditionsSort extends StatelessWidget {
                         //     && sort.sceneLists.isNotEmpty && sort.atmosphereLists.isNotEmpty
                         //     ? _isDisabled = true: _isDisabled = false;
                         return ElevatedButton(
-                            onPressed: () =>
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) {
-                                      return ConditionsSortResults();
-                                    })),
+                          //画面遷移をせずに、前の画面にソートが反映されるようにしています
+                            onPressed: () =>Navigator.of(context).pop(),
+                                //Navigator.of(context).push(
+                                //    MaterialPageRoute(builder: (context) {
+                                //      return ConditionsSortResults();
+                                //    })),
                             child: const Text(
                               '絞り込み', style: TextStyle(fontSize: 20),)
                         );

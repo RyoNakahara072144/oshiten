@@ -53,7 +53,15 @@ class _MyPageState extends State<MyPage> {
                               if(snapshot.hasData&&snapshot.data!.exists){
                                 Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
                                 if(data['profileImgUrl'] == ""){
-                                  return const Icon(Icons.image);
+                                  return Container(
+                                    height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(90),
+                                      ),
+                                      child:const Center(child: Icon(Icons.image,))
+                                  );
                                 }else{
                                   return CircleAvatar(
                                     radius: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?100:60,
@@ -63,8 +71,11 @@ class _MyPageState extends State<MyPage> {
                               }else {
                                 return Container(
                                   height: 100,width: 100,
-                                  color: Colors.grey,
-                                  child: const Text('画像を登録',style: TextStyle(color: Colors.black45),),);
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(90),
+                                  ),
+                                  child: const Center(child: Text('画像を登録',style: TextStyle(color: Colors.black45),)),);
                               }
                             }
                           );
@@ -145,43 +156,53 @@ class _MyPageState extends State<MyPage> {
               const SizedBox(height: 30,),
               Container(
                 alignment: Alignment.centerLeft,
-                child: const Text('推した店',style: TextStyle(fontSize: 20),),
+                child: const Text('推した店',style: TextStyle(fontSize: 20, ),),
               ),
               const SizedBox(height: 5,),
-              Row(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
-                    300:150,
-                    width: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
-                    300:150,
-                    child: Image.asset('images/profilePic/pic2.png'),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Card(
+                  child: Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
+                        300:150,
+                        width: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
+                        300:150,
+                        child: Image.asset('images/profilePic/pic2.png', fit: BoxFit.cover),
+                      ),
+                      const SizedBox(width: 20,),
+                      const Text('このお店を紹介しました',style: TextStyle(fontSize: 15),)
+                    ],
                   ),
-                  const SizedBox(width: 20,),
-                  const Text('このお店を紹介しました',style: TextStyle(fontSize: 15),)
-                ],
+                ),
               ),
               const SizedBox(height: 20,),
               Container(
                 alignment: Alignment.centerLeft,
                 child: const Text('推してもらった店',style: TextStyle(fontSize: 20),),
               ),
-              Row(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
-                    300:150,
-                    width: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
-                    300:150,
-                    child: Image.asset('images/profilePic/pic4.png'),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Card(
+                  child: Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
+                        300:150,
+                        width: MediaQuery.of(context).size.height < MediaQuery.of(context).size.width?
+                        300:150,
+                        child: Image.asset('images/profilePic/pic4.png', fit: BoxFit.cover,),
+                      ),
+                      const SizedBox(width: 20,),
+                      const Flexible(
+                        child: (
+                          Text('このお店を紹介してもらいました',style: TextStyle(fontSize: 15),)
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 20,),
-                  const Flexible(
-                    child: (
-                      Text('このお店を紹介してもらいました',style: TextStyle(fontSize: 15),)
-                    ),
-                  ),
-                ],
+                ),
               )
             ],
           ),
